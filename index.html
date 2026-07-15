@@ -23,33 +23,22 @@
         left: -8.8%;  
       }
 
-      /* 🎨 ここでナビゲーションバーを強制的に緑色（00d631）にします */
+      /* 🎨 ナビゲーションバーを強制的に緑色（00d631）にします */
       div[class*="menu-bar_menu-bar"],
       [class*="menu-bar_menu-bar"] {
         background-color: #00d631 !important; 
       }
 
-      /* 🎯 ロゴの元々の公式リンク（mit.edu）のクリック判定を完全に消す */
-      div[class*="menu-bar_logo_"] a,
+      /* 🎯 【新常識】古いリンク（mit.edu）の機能をCSSで完全に無効化します */
       a[href*="scratch.mit.edu"] {
         pointer-events: none !important; 
+        cursor: default !important;
       }
 
-      /* 🚀 リンクを消したロゴの「真上」に、あなたのサイトへの新しいリンク用の透明な壁を作ります */
-      div[class*="menu-bar_logo_"] {
-        position: relative !important;
-      }
-      
-      div[class*="menu-bar_logo_"]::after {
-        content: "" !important;
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
+      /* 🚀 その代わり、特定のロゴ画像（1e9652be...）だけはクリックできるように復活させます */
+      img[src*="1e9652bec24bcaacf5285be19746a750"] {
+        pointer-events: auto !important;
         cursor: pointer !important;
-        pointer-events: auto !important; /* ここだけクリックできるようにする */
-        z-index: 9999 !important;
       }
     </style>
   </head>
@@ -57,16 +46,17 @@
     <script type="text/javascript" src="lib.min.js"></script>
     <script type="text/javascript" src="chunks/gui.js"></script>
 
-    <!-- 🛠️ ロゴがタップされたらあなたのサイトのトップページに移動させる（JavaScriptもCSSと連動させて確実に動かします） -->
+    <!-- 🛠️ ロゴ画像がタップされた時だけ、確実にあなたのサイトへ移動させる安全な仕組み -->
     <script>
-      // 画面上のどこかがクリックされた時
       document.addEventListener('click', (e) => {
-        // クリックされたのがロゴの場所（menu-bar_logo_）だった場合
-        if (e.target.closest('div[class*="menu-bar_logo_"]')) {
-          // あなたのトップページへ移動させる
+        // クリックされた要素の「画像URL」に、あのロゴのファイル名が含まれているかチェック
+        if (e.target.tagName === 'IMG' && e.target.src.includes('1e9652bec24bcaacf5285be19746a750')) {
+          e.preventDefault();
+          e.stopPropagation();
+          // あなたのトップページへ移動
           window.location.href = 'https://github.io';
         }
-      }, true); // trueで最優先でキャッチ
+      }, true); // 最優先でキャッチ
     </script>
   </body>
 </html>
