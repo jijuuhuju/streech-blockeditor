@@ -15,17 +15,15 @@
   content: url("static/player.svg") !important;
   href: url("static/player.svg") !important;
 }
-/* 🚀 画面右上のアイコン・ロゴをオリジナルのstreechlogoにすり替える */
-[class*="menu-bar_account-info"] img,
-[class*="menu-bar_profile"] img,
-img[class*="menu-bar_mystuff"],
-div[class*="menu-bar_user-name"] ~ img {
+//* 🚀 左上のオレンジ色のSCRATCHロゴもstreechlogoに変える */
+img[src*="scratch-logo"],
+a[class*="menu-bar_logo"] img,
+img[alt="Scratch"] {
   content: url("static/streechlogo.svg") !important;
   width: auto !important;
-  height: 24px !important; /* 右上のバーに綺麗に収まる高さ */
+  height: 28px !important;
 }
-
-      html, body {
+  html, body {
         overflow: hidden;
         background-color: #000;
       }
