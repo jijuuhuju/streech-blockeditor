@@ -1,56 +1,62 @@
-    <!-- 🟢 2023年6月前のScratchに安全に2つのオリジナルブロックを直結させるプログラム -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.85, maximum-scale=0.85, user-scalable=no">
+    <meta name="google" value="notranslate">
+    <link rel="icon" type="image/svg+xml" href="static/icon.svg">
+    <title>Streech editor</title>
+    
+    <style>
+       html, body {
+        overflow: hidden;
+        background-color: #00d631;
+      }
+      /* 画面サイズをiPadに合わせる設定 */
+      #app, body > div {
+        transform: scale(0.85); 
+        transform-origin: center center;
+        width: 117.6% !important;  
+        height: 117.6% !important; 
+        position: absolute;
+        top: -8.8%;   
+        left: -8.8%;  
+      }
+
+      /* 🎨 ナビゲーションバーを強制的に緑色（00d631）にします */
+      div[class*="menu-bar_menu-bar"],
+      [class*="menu-bar_menu-bar"] {
+        background-color: #00d631 !important; 
+      }
+
+      /* 🎯 【新常識】古いリンク（mit.edu）の機能をCSSで完全に無効化します */
+      a[href*="scratch.mit.edu"] {
+        pointer-events: none !important; 
+        cursor: default !important;
+      }
+
+      /* 🚀 その代わり、特定のロゴ画像（1e9652be...）だけはクリックできるように復活させます */
+      img[src*="1e9652bec24bcaacf5285be19746a750"] {
+        pointer-events: auto !important;
+        cursor: pointer !important;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="text/javascript" src="lib.min.js"></script>
+    <script type="text/javascript" src="chunks/gui.js"></script>
+
+    <!-- 🛠️ ロゴ画像がタップされた時だけ、確実にあなたのサイトへ移動させる安全な仕組み -->
     <script>
-      window.addEventListener('load', () => {
-        // Scratchのエディター（Blockly）が画面に準備できるまで少し待つ
-        const checkBlockly = setInterval(() => {
-          if (window.Blockly && window.Blockly.Blocks) {
-            clearInterval(checkBlockly);
-
-            // 🔄 1. 「逆にする」ブロックの仕組みを登録
-            window.Blockly.Blocks['streech_reverse'] = {
-              init: function() {
-                this.jsonInit({
-                  "message0": "%1 を逆にする",
-                  "args0": [{"type": "input_value", "name": "TEXT"}],
-                  "category": "operators", // 🟩 演算カテゴリ（緑色）に入れる
-                  "checkboxInFlyout": false,
-                  "output": "String", // 丸型ブロックにする
-                  "colour": "#5CB33F", // 演算ブロックと同じ緑色
-                  "colourSecondary": "#469E2B",
-                  "colourTertiary": "#3B8523"
-                });
-              }
-            };
-            // 「逆にする」の実際のJavaScript処理
-            window.Blockly.JavaScript = window.Blockly.JavaScript || {};
-            window.Blockly.JavaScript['streech_reverse'] = function(block) {
-              const text = window.Blockly.JavaScript.valueToCode(block, 'TEXT', window.Blockly.JavaScript.ORDER_NONE) || "''";
-              return ["String(" + text + ").split('').reverse().join('')", window.Blockly.JavaScript.ORDER_FUNCTION_CALL];
-            };
-
-            // 🎲 2. 「バラバラにする」ブロックの仕組みを登録
-            window.Blockly.Blocks['streech_shuffle'] = {
-              init: function() {
-                this.jsonInit({
-                  "message0": "%1 をバラバラにする",
-                  "args0": [{"type": "input_value", "name": "TEXT"}],
-                  "category": "operators", // 🟩 演算カテゴリ（緑色）に入れる
-                  "checkboxInFlyout": false,
-                  "output": "String", // 丸型ブロックにする
-                  "colour": "#5CB33F",
-                  "colourSecondary": "#469E2B",
-                  "colourTertiary": "#3B8523"
-                });
-              }
-            };
-            // 「バラバラにする」の実際のJavaScript処理
-            window.Blockly.JavaScript['streech_shuffle'] = function(block) {
-              const text = window.Blockly.JavaScript.valueToCode(block, 'TEXT', window.Blockly.JavaScript.ORDER_NONE) || "''";
-              return ["String(" + text + ").split('').sort(function(){return Math.random()-0.5}).join('')", window.Blockly.JavaScript.ORDER_FUNCTION_CALL];
-            };
-
-            console.log('Streech: 2つのブロックの登録に成功しました！');
-          }
-        }, 1000); // 1秒ごとにエディターの起動をチェック
-      });
+      document.addEventListener('click', (e) => {
+        // クリックされた要素の「画像URL」に、あのロゴのファイル名が含まれているかチェック
+        if (e.target.tagName === 'IMG' && e.target.src.includes('1e9652bec24bcaacf5285be19746a750')) {
+          e.preventDefault();
+          e.stopPropagation();
+          // あなたのトップページへ移動
+          window.location.href = 'https://jijuuhuju.github.io/Streech-home/';
+        }
+      }, true); // 最優先でキャッチ
     </script>
+  </body>
+</html>
