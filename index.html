@@ -2,11 +2,30 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="google" value="notranslate">
     <link rel="shortcut icon" href="static/favicon.ico">
     <title>Scratch 3.0 GUI</title>
     
+    <!-- 👇 ここから下に、画面を強制的に縮小する命令を追加しました -->
+    <style>
+      html, body {
+        overflow: hidden;
+        background-color: #000; /* はみ出た余白を黒にして見やすくします */
+      }
+      /* スクラッチの画面全体を85%の大きさに縮小して、中央に配置する設定 */
+      #app, body > div {
+        transform: scale(0.85); 
+        transform-origin: center center;
+        width: 117.6% !important;  /* 85%に縮小した分、幅を補正 (100 / 0.85) */
+        height: 117.6% !important; /* 85%に縮小した分、高さを補正 */
+        position: absolute;
+        top: -8.8%;   /* 上下のズレを中央に戻す微調整 */
+        left: -8.8%;  /* 左右のズレを中央に戻す微調整 */
+      }
+    </style>
+    <!-- 👆 ここまで -->
+
   </head>
   <body>
   <script type="text/javascript" src="lib.min.js"></script><script type="text/javascript" src="chunks/gui.js"></script></body>
