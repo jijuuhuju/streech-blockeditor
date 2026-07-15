@@ -10,7 +10,7 @@
     <style>
        html, body {
         overflow: hidden;
-        background-color: #000;
+        background-color: #00d631;
       }
       /* 画面サイズをiPadに合わせる設定 */
       #app, body > div {
@@ -33,5 +33,14 @@
   <body>
     <script type="text/javascript" src="lib.min.js"></script>
     <script type="text/javascript" src="chunks/gui.js"></script>
+
+    <!-- 🛠️ ここから下を追加：scratch-cat を streech-user に強制上書きします -->
+    <script>
+      const observer = new MutationObserver(() => {
+        document.body.innerHTML = document.body.innerHTML.replace(/scratch-cat/g, 'streech-user');
+        observer.disconnect();
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    </script>
   </body>
 </html>
