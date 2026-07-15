@@ -10,7 +10,7 @@
     <style>
        html, body {
         overflow: hidden;
-        background-color: #000;
+        background-color: #00d631;
       }
       /* 画面サイズをiPadに合わせる設定 */
       #app, body > div {
@@ -29,15 +29,18 @@
         background-color: #00d631 !important; 
       }
 
-      /* 🦊 ここから追加：ロゴの上に透明な「クリック判定」を重ねて、公式リンクを無効化します */
-      div[class*="menu-bar_logo_"],
-      [class*="menu-bar_logo_"] {
-        position: relative !important;
-        pointer-events: auto !important; /* クリックできるようにする */
+      /* 🎯 ロゴの元々の公式リンク（mit.edu）のクリック判定を完全に消す */
+      div[class*="menu-bar_logo_"] a,
+      a[href*="scratch.mit.edu"] {
+        pointer-events: none !important; 
       }
 
-      div[class*="menu-bar_logo_"]::after,
-      [class*="menu-bar_logo_"]::after {
+      /* 🚀 リンクを消したロゴの「真上」に、あなたのサイトへの新しいリンク用の透明な壁を作ります */
+      div[class*="menu-bar_logo_"] {
+        position: relative !important;
+      }
+      
+      div[class*="menu-bar_logo_"]::after {
         content: "" !important;
         position: absolute !important;
         top: 0 !important;
@@ -45,7 +48,8 @@
         width: 100% !important;
         height: 100% !important;
         cursor: pointer !important;
-        z-index: 9999 !important; /* 一番手前に持ってくる */
+        pointer-events: auto !important; /* ここだけクリックできるようにする */
+        z-index: 9999 !important;
       }
     </style>
   </head>
@@ -53,18 +57,16 @@
     <script type="text/javascript" src="lib.min.js"></script>
     <script type="text/javascript" src="chunks/gui.js"></script>
 
-    <!-- 🛠️ ここから追加：ロゴがタップされたら自分のサイトに移動させるプログラム（フリーズしません） -->
+    <!-- 🛠️ ロゴがタップされたらあなたのサイトのトップページに移動させる（JavaScriptもCSSと連動させて確実に動かします） -->
     <script>
+      // 画面上のどこかがクリックされた時
       document.addEventListener('click', (e) => {
-        // タップされた場所がロゴ（またはロゴの重ね合わせ部分）だった場合
-        if (e.target.matches('div[class*="menu-bar_logo_"]') || e.target.closest('div[class*="menu-bar_logo_"]')) {
-          e.preventDefault();  // 公式サイトへ行く元のリンクをキャンセル
-          e.stopPropagation(); // イベントの連鎖を止める
-          
-          // 🛑 移動したいURLをここに書きます（今はあなたのトップページになっています）
+        // クリックされたのがロゴの場所（menu-bar_logo_）だった場合
+        if (e.target.closest('div[class*="menu-bar_logo_"]')) {
+          // あなたのトップページへ移動させる
           window.location.href = 'https://github.io';
         }
-      }, true); // trueをつけて最優先でクリックをキャッチします
+      }, true); // trueで最優先でキャッチ
     </script>
   </body>
 </html>
