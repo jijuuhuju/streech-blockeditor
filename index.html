@@ -8,13 +8,17 @@
     <title>Streech editor</title>
     
     <style>
-      /* 🐱 最初のネコを自分のキャラ（player.svg）にすり替える */
-img[src*="a594d7f5"], 
-image[href*="a594d7f5"], 
-image[xlink:href*="a594d7f5"] {
+      /* 🐱 どの時代のスクラッチでも、最初のネコをplayer.svgに強制すり替え */
+g[id*="costume"] image,
+image[id*="costume"],
+image[xlink\:href*="assets/"],
+image[href*="assets/"],
+img[src*="assets/"] {
   content: url("static/player.svg") !important;
   href: url("static/player.svg") !important;
+  xlink:href: url("static/player.svg") !important;
 }
+
       html, body {
         overflow: hidden;
         background-color: #000;
