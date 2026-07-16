@@ -2,80 +2,12 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <!-- 🎯【変更点1】iPadの標準画面に固定し、ブラウザの変なズームバグを防止します -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google" value="notranslate">
-    <link rel="icon" type="image/svg+xml" href="static/icon.ico">
-    <title>Streech editor</title>
+    <link rel="shortcut icon" href="static/favicon.ico">
+    <title>Scratch 3.0 GUI</title>
     
-    <style>
-      html, body {
-        overflow: hidden;
-        background-color: #00d631;
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-      }
-
-      /* 🎯【変更点2】バグを巻き起こしていたtransformなどの無理な縮小CSSを完全に削除しました。
-         枠組みは画面ぴったり（100%）に固定します。 */
-      #app, body > div, div[class*="gui_page-wrapper"] {
-        position: absolute !important;
-        top: 0 !important;   
-        left: 0 !important;  
-        width: 100% !important;  
-        height: 100% !important; 
-        transform: none !important;
-        margin: 0 !important;
-      }
-
-      /* 🎨 ナビゲーションバーを強制的に緑色（00d631）にします */
-      div[class*="menu-bar_menu-bar"],
-      [class*="menu-bar_menu-bar"] {
-        background-color: #00d631 !important; 
-      }
-
-      /* 🎯 古いリンク（mit.edu）の機能をCSSで完全に無効化します */
-      a[href*="scratch.mit.edu"] {
-        pointer-events: none !important; 
-        cursor: default !important;
-      }
-
-      /* 🚀 その代わり、特定のロゴ画像（1e9652be...）だけはクリックできるように復活させます */
-      img[src*="1e9652bec24bcaacf5285be19746a750"] {
-        pointer-events: auto !important;
-        cursor: pointer !important;
-      }
-    </style>
   </head>
   <body>
-    <script type="text/javascript" src="lib.min.js"></script>
-    <script type="text/javascript" src="chunks/gui.js"></script>
-
-    <!-- 🛠️ ロゴ画像がタップされた時だけ、確実にあなたのサイトへ移動させる安全な仕組み -->
-    <script>
-      document.addEventListener('click', (e) => {
-        if (e.target.tagName === 'IMG' && e.target.src.includes('1e9652bec24bcaacf5285be19746a750')) {
-          e.preventDefault();
-          e.stopPropagation();
-          window.location.href = 'https://github.io';
-        }
-      }, true);
-    </script>
-
-    <!-- 🎯【変更点3】CSSを使わずに、サイト全体の「解像度」を安全に0.85倍にするプログラム -->
-    <script>
-      (function() {
-        // iPadに対して、このサイトの表示比率を「0.85倍（コンパクト）」にするようJavaScriptで命令します。
-        // これにより、Scratchが「初めからこのサイズ用の画面」として正しく位置を計算するため、
-        // メニューバーのロゴの並び順も、数字の吹き出し（テンキー）も、絶対に壊れずに画像通りのサイズで動きます。
-        try {
-          window.devicePixelRatio = (window.devicePixelRatio || 1) * 0.85;
-        } catch(e) {
-          console.error(e);
-        }
-      })();
-    </script>
-  </body>
+  <script type="text/javascript" src="lib.min.js"></script><script type="text/javascript" src="chunks/gui.js"></script></body>
 </html>
