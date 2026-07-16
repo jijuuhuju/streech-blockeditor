@@ -7,11 +7,19 @@
     <link rel="shortcut icon" href="static/webicon.ico">
     <title>Streech editor（ストリーチ）</title>
     
+    <!-- 補足：ここに以下の4行を追加しました -->
+    <script>
+      if (!window.location.search.includes('project_url')) {
+        window.location.search = '?project_url=default.sb3';
+      }
+    </script>
   </head>
   <body>
     <style>
-  html { zoom: 0.85; }
-       [class*="menu-bar_menu-bar_"] { background-color: #00d631 !important; }
-</style>
- <script type="text/javascript" src="lib.min.js"></script><script type="text/javascript" src="chunks/gui.js"></script></body>
+      html { zoom: 0.85; }
+      [class*="menu-bar_menu-bar_"] { background-color: #00d631 !important; }
+    </style>
+    <script type="text/javascript" src="lib.min.js"></script>
+    <script type="text/javascript" src="chunks/gui.js"></script>
+  </body>
 </html>
