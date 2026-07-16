@@ -12,39 +12,17 @@
         overflow: hidden;
         background-color: #00d631;
       }
-      /* 画面サイズをiPadに合わせる設定 */
-      #app, body > div {
-        transform: scale(0.85); 
-        transform-origin: center center;
-        width: 117.6% !important;  
-        height: 117.6% !important; 
-        position: absolute;
-        top: -8.8%;   
-        left: -8.8%;  
-      }
-/* 🎯 これだけで解決：テンキー全体のズレと巨大化を相殺して元に戻す */
-.blocklyDropDownDiv {
-  transform: scale(calc(1 / 0.85)) !important; /* 0.85倍の縮小をここで完全に打ち消す */
-  transform-origin: top center !important;     /* 吹き出しのトゲの位置を基準にする */
+
+      /* ❌ 古い transform の記述（width: 117.6% なども含む）をすべて削除し、以下に置き換えます */
+#app, body > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  zoom: 0.85; /* 👈 これがポイントです。判定のズレも吹き出しの崩れも両方同時に解決します */
 }
 
-      /* 🎨 ナビゲーションバーを強制的に緑色（00d631）にします */
-      div[class*="menu-bar_menu-bar"],
-      [class*="menu-bar_menu-bar"] {
-        background-color: #00d631 !important; 
-      }
-
-      /* 🎯 【新常識】古いリンク（mit.edu）の機能をCSSで完全に無効化します */
-      a[href*="scratch.mit.edu"] {
-        pointer-events: none !important; 
-        cursor: default !important;
-      }
-
-      /* 🚀 その代わり、特定のロゴ画像（1e9652be...）だけはクリックできるように復活させます */
-      img[src*="1e9652bec24bcaacf5285be19746a750"] {
-        pointer-events: auto !important;
-        cursor: pointer !important;
-      }
     </style>
   </head>
   <body>
