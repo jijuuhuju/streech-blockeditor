@@ -1,38 +1,65 @@
-<style>
-  html, body {
-    overflow: hidden;
-    background-color: #00d631;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-  }
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- 🎯【変更点1】画面全体のベースサイズを、ブラウザ自体に0.85倍として正しく認識させます -->
+    <meta name="viewport" content="width=device-width, initial-scale=0.85, maximum-scale=0.85, user-scalable=no">
+    <meta name="google" value="notranslate">
+    <link rel="icon" type="image/svg+xml" href="static/icon.ico">
+    <title>Streech editor</title>
+    
+    <style>
+       html, body {
+        overflow: hidden;
+        background-color: #00d631;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+      }
 
-  /* 🎯 【画面サイズ設定】zoomを使うことで判定のズレと入力欄の崩れを防ぎます */
-  #app, body > div {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100% !important;
-    height: 100% !important;
-    zoom: 0.85; 
-  }
+      /* 🎯【変更点2】画面が消滅するバグの原因になった zoom や transform をすべて排除し、
+         Scratchが正常に動く100%の基本サイズに固定します。 */
+      #app, body > div {
+        position: absolute;
+        top: 0;   
+        left: 0;  
+        width: 100% !important;  
+        height: 100% !important; 
+      }
 
-  /* 🎨 【復活！】ナビゲーションバーを強制的に緑色（00d631）にします */
-  div[class*="menu-bar_menu-bar"],
-  [class*="menu-bar_menu-bar"] {
-    background-color: #00d631 !important; 
-  }
+      /* 🎨 ナビゲーションバーを強制的に緑色（00d631）にします */
+      div[class*="menu-bar_menu-bar"],
+      [class*="menu-bar_menu-bar"] {
+        background-color: #00d631 !important; 
+      }
 
-  /* 🎯 古いリンク（mit.edu）の機能をCSSで完全に無効化します */
-  a[href*="scratch.mit.edu"] {
-    pointer-events: none !important; 
-    cursor: default !important;
-  }
+      /* 🎯 古いリンク（mit.edu）の機能をCSSで完全に無効化します */
+      a[href*="scratch.mit.edu"] {
+        pointer-events: none !important; 
+        cursor: default !important;
+      }
 
-  /* 🚀 その代わり、特定のロゴ画像（1e9652be...）だけはクリックできるように復活させます */
-  img[src*="1e9652bec24bcaacf5285be19746a750"] {
-    pointer-events: auto !important;
-    cursor: pointer !important;
-  }
-</style>
+      /* 🚀 その代わり、特定のロゴ画像（1e9652be...）だけはクリックできるように復活させます */
+      img[src*="1e9652bec24bcaacf5285be19746a750"] {
+        pointer-events: auto !important;
+        cursor: pointer !important;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="text/javascript" src="lib.min.js"></script>
+    <script type="text/javascript" src="chunks/gui.js"></script>
+
+    <!-- 🛠️ ロゴ画像がタップされた時だけ、確実にあなたのサイトへ移動させる安全な仕組み -->
+    <script>
+      document.addEventListener('click', (e) => {
+        if (e.target.tagName === 'IMG' && e.target.src.includes('1e9652bec24bcaacf5285be19746a750')) {
+          e.preventDefault();
+          e.stopPropagation();
+          window.location.href = 'https://github.io';
+        }
+      }, true);
+    </script>
+  </body>
+</html>
