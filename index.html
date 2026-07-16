@@ -2,24 +2,33 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <!-- 🎯【変更点1】画面全体のベースサイズを、ブラウザ自体に0.85倍として正しく認識させます -->
-    <meta name="viewport" content="width=device-width, initial-scale=0.85, maximum-scale=0.85, user-scalable=no">
+    <!-- 🎯【変更点1】iPadの無視バグ対策として、一度標準の1.0に戻します -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="google" value="notranslate">
     <link rel="icon" type="image/svg+xml" href="static/icon.ico">
     <title>Streech editor</title>
     
     <style>
-       html, body {
+      /* 🎯【変更点2】エディタだけでなく、後から生成されるテンキーの吹き出しも含めて、
+         画面の最上層（htmlタグ）から丸ごと一括で0.85倍に縮小します。
+         すべてが同じ倍率で縮小されるため、iPadの計算が絶対に狂わなくなり、
+         あなたの理想の画面サイズを維持したまま、吹き出しの崩壊を完璧に防ぎます。 */
+      html {
+        transform: scale(0.85) !important;
+        transform-origin: top left !important; /* 左上を基準にしてきれいに縮小 */
+        width: 117.65% !important;  /* 1 / 0.85 の計算値（はみ出し防止） */
+        height: 117.65% !important; /* 1 / 0.85 の計算値（はみ出し防止） */
         overflow: hidden;
-        background-color: #00d631;
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
       }
 
-      /* 🎯【変更点2】画面が消滅するバグの原因になった zoom や transform をすべて排除し、
-         Scratchが正常に動く100%の基本サイズに固定します。 */
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100% !important;
+        height: 100% !important;
+        background-color: #00d631;
+      }
+
       #app, body > div {
         position: absolute;
         top: 0;   
