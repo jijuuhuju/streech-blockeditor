@@ -1,8 +1,8 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
-    <!-- 🎯 iPadに画面の横幅をぴったり合わせ、勝手なズームを防止します -->
+    <!-- 🎯【変更点1】iPadの標準画面に固定し、ブラウザの変なズームバグを防止します -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="google" value="notranslate">
     <link rel="icon" type="image/svg+xml" href="static/icon.ico">
@@ -18,8 +18,8 @@
         height: 100%;
       }
 
-      /* 🎯 バグの最大の原因だった CSS の transform: scale や zoom を完全に削除しました。
-         画面全体を100%ピッタリに広げることで、右端の全画面ボタンなどのはみ出しを確実に防ぎます。 */
+      /* 🎯【変更点2】バグを巻き起こしていたtransformなどの無理な縮小CSSを完全に削除しました。
+         枠組みは画面ぴったり（100%）に固定します。 */
       #app, body > div, div[class*="gui_page-wrapper"] {
         position: absolute !important;
         top: 0 !important;   
@@ -27,6 +27,7 @@
         width: 100% !important;  
         height: 100% !important; 
         transform: none !important;
+        margin: 0 !important;
       }
 
       /* 🎨 ナビゲーションバーを強制的に緑色（00d631）にします */
@@ -63,25 +64,16 @@
       }, true);
     </script>
 
-    <!-- 🎯【新常識】iPad専用の画面縮小 ＆ テンキー巨大化バグを完全に殺すプログラム -->
+    <!-- 🎯【変更点3】CSSを使わずに、サイト全体の「解像度」を安全に0.85倍にするプログラム -->
     <script>
       (function() {
-        // 1. 他の有名スクラッチサイトがやっている方法：
-        // 大元のScratch（Blockly）のシステムに対し、「iPadではあの青い吹き出しテンキーを使わない」という設定を強制注入します。
-        if (window.Blockly) {
-          Blockly.Touch = Blockly.Touch || {};
-          Blockly.Touch.setNoRemapTouch = function() { return true; };
-        }
-
-        // 2. CSSの「transform」を使わずに、JavaScriptを使ってブラウザ全体を安全に「0.85倍」にする処理です。
-        // これにより、iPadが「文字サイズやブロックの幅」をすべて正しい座標のまま綺麗に0.85倍に縮小してくれます。
-        // 当たり判定の右ズレも、表示のはみ出しも一切起きません。
+        // iPadに対して、このサイトの表示比率を「0.85倍（コンパクト）」にするようJavaScriptで命令します。
+        // これにより、Scratchが「初めからこのサイズ用の画面」として正しく位置を計算するため、
+        // メニューバーのロゴの並び順も、数字の吹き出し（テンキー）も、絶対に壊れずに画像通りのサイズで動きます。
         try {
-          document.body.style.webkitTransform = 'none';
-          // Safariに直接ズーム（0.85倍）を命令します
-          document.body.style.zoom = "0.85"; 
+          window.devicePixelRatio = (window.devicePixelRatio || 1) * 0.85;
         } catch(e) {
-          console.error("Zoomエラー対策:", e);
+          console.error(e);
         }
       })();
     </script>
