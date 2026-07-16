@@ -22,13 +22,10 @@
         top: -8.8%;   
         left: -8.8%;  
       }
-/* 🛠️ 巨大化バグを防ぐための追加コード */
-.blocklyWidgetDiv, 
+/* 🎯 これだけで解決：テンキー全体のズレと巨大化を相殺して元に戻す */
 .blocklyDropDownDiv {
-  /* Scratch側のJavaScriptによる巨大なサイズ計算を無視させる */
-  transform: scale(1) !important; 
-  max-width: 300px !important;  /* 入力パレットの最大横幅を固定 */
-  max-height: 400px !important; /* 入力パレットの最大縦幅を固定 */
+  transform: scale(calc(1 / 0.85)) !important; /* 0.85倍の縮小をここで完全に打ち消す */
+  transform-origin: top center !important;     /* 吹き出しのトゲの位置を基準にする */
 }
 
 /* テンキーのボタンサイズが崩れる対策 */
