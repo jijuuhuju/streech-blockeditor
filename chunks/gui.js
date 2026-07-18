@@ -147,7 +147,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 
 var onClickLogo = function onClickLogo() {
-  window.location = 'https://scratch.mit.edu';
+  window.location = 'https://jijuuhuju.github.io/Streech-home/';
 };
 
 var handleTelemetryModalCancel = function handleTelemetryModalCancel() {
