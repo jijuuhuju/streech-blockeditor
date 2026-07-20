@@ -2,29 +2,23 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- ⬇️ ここに viewport の設定を変更（文字やUIを自動で少し小さく表示させる） -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.17">
     <meta name="google" value="notranslate">
     <link rel="shortcut icon" href="static/webicon.ico">
     <title>Streech editor（ストリーチ）</title>
   </head>
   <body>
-        <style>
-      html {
-        transform: scale(0.85) !important;
-        transform-origin: top left !important;
-        width: 117.64% !important;
-        height: 117.64% !important;
-        overflow: hidden !important;
-      }
-      body {
+    <!-- ⬇️ 不具合の原因になる transform や zoom はすべて削除しました -->
+    <style>
+      html, body {
         width: 100% !important;
         height: 100% !important;
-        overflow: hidden !important;
         margin: 0 !important;
+        overflow: hidden !important;
       }
       [class*="menu-bar_menu-bar_"] { background-color: #00d631 !important; }
     </style>
-
     <script type="text/javascript" src="lib.min.js"></script>
     <script type="text/javascript" src="chunks/gui.js"></script>
   </body>
