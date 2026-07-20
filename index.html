@@ -2,14 +2,12 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <!-- ⬇️ ここに viewport の設定を変更（文字やUIを自動で少し小さく表示させる） -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.17">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google" value="notranslate">
     <link rel="shortcut icon" href="static/webicon.ico">
     <title>Streech editor（ストリーチ）</title>
   </head>
   <body>
-    <!-- ⬇️ 不具合の原因になる transform や zoom はすべて削除しました -->
     <style>
       html, body {
         width: 100% !important;
@@ -21,5 +19,27 @@
     </style>
     <script type="text/javascript" src="lib.min.js"></script>
     <script type="text/javascript" src="chunks/gui.js"></script>
+
+    <!-- ⬇️ 読み込み完了後に、ブロックのデフォルト倍率を0.85倍に強制書き換えするスクリプト -->
+    <script type="text/javascript">
+      (function() {
+        const checkBlockly = setInterval(() => {
+          if (window.Blockly && window.Blockly.Options) {
+            // Blockly全体の初期ズーム倍率のデフォルト値を 0.85 に設定
+            const originalParse = window.Blockly.Options.parseZoomOptions_;
+            if (originalParse) {
+              window.Blockly.Options.parseZoomOptions_ = function(options) {
+                const parsed = originalParse.call(this, options);
+                parsed.startScale = 0.85; // 初期倍率を0.85倍にする
+                return parsed;
+              };
+              clearInterval(checkBlockly);
+            }
+          }
+        }, 100);
+        // 5秒経っても見つからなければ終了
+        setTimeout(() => clearInterval(checkBlockly), 5000);
+      })();
+    </script>
   </body>
 </html>
