@@ -9,7 +9,13 @@
   </head>
   <body>
     <style>
-      html { zoom: 0.85; }
+      [class*="gui_app--wrapper_"] {
+    transform: scale(0.85);
+    transform-origin: top left;
+    width: 117.64% !important;
+    height: 117.64% !important;
+}
+
       [class*="menu-bar_menu-bar_"] { background-color: #00d631 !important; }
     </style>
     <script type="text/javascript" src="lib.min.js"></script>
