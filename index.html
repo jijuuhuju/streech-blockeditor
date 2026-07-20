@@ -2,14 +2,25 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="google" value="notranslate">
     <link rel="shortcut icon" href="static/webicon.ico">
     <title>Streech editor（ストリーチ）</title>
   </head>
   <body>
     <style>
-      html, body {
+      /* 画面全体を0.85倍に縮小 */
+      html {
+        transform: scale(0.85) !important;
+        transform-origin: top left !important;
+        width: 117.64% !important;
+        height: 117.64% !important;
+        overflow: hidden !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+      }
+      body {
         width: 100% !important;
         height: 100% !important;
         margin: 0 !important;
@@ -17,29 +28,69 @@
       }
       [class*="menu-bar_menu-bar_"] { background-color: #00d631 !important; }
     </style>
-    <script type="text/javascript" src="lib.min.js"></script>
-    <script type="text/javascript" src="chunks/gui.js"></script>
-
-    <!-- ⬇️ 読み込み完了後に、ブロックのデフォルト倍率を0.85倍に強制書き換えするスクリプト -->
+    
+    <!-- ⬇️ 階層を完全に網羅して、すべての座標バグを根本から強制修正するスクリプト -->
     <script type="text/javascript">
       (function() {
-        const checkBlockly = setInterval(() => {
-          if (window.Blockly && window.Blockly.Options) {
-            // Blockly全体の初期ズーム倍率のデフォルト値を 0.85 に設定
-            const originalParse = window.Blockly.Options.parseZoomOptions_;
-            if (originalParse) {
-              window.Blockly.Options.parseZoomOptions_ = function(options) {
-                const parsed = originalParse.call(this, options);
-                parsed.startScale = 0.85; // 初期倍率を0.85倍にする
-                return parsed;
-              };
-              clearInterval(checkBlockly);
-            }
+        const SCALE = 0.85;
+        const properties = ['clientX', 'clientY', 'pageX', 'pageY', 'screenX', 'screenY'];
+        
+        // 💡 解決の決定打：プロトタイプチェーンを遡り、ゲッターが実際に定義されている階層（クラス）を見つけて確実に上書きする関数
+        function patchProperty(cls, prop) {
+          if (!cls || !cls.prototype) return;
+          let proto = cls.prototype;
+          let descriptor = null;
+          
+          // ゲッターが見つかるまで親のプロトタイプを遡る
+          while (proto && !descriptor) {
+            descriptor = Object.getOwnPropertyDescriptor(proto, prop);
+            if (!descriptor) proto = Object.getPrototypeOf(proto);
           }
-        }, 100);
-        // 5秒経っても見つからなければ終了
-        setTimeout(() => clearInterval(checkBlockly), 5000);
+          
+          // 見つかったゲッターを強制的に 1 / 0.85 倍にする
+          if (descriptor && descriptor.configurable && descriptor.get) {
+            const originalGetter = descriptor.get;
+            Object.defineProperty(proto, prop, {
+              get: function() {
+                return originalGetter.call(this) / SCALE;
+              },
+              configurable: true
+            });
+          }
+        }
+
+        // iPad環境で発生するすべてのイベントクラスに対して実行
+        const classesToPatch = [
+          window.Touch,
+          window.PointerEvent,
+          window.MouseEvent,
+          window.TouchEvent,
+          window.UIEvent
+        ];
+
+        classesToPatch.forEach(cls => {
+          properties.forEach(prop => patchProperty(cls, prop));
+        });
+
+        // エディタ各パーツの「見た目の基準位置」のズレも同時に相殺
+        const originalGetBoundingClientRect = Element.prototype.getBoundingClientRect;
+        Element.prototype.getBoundingClientRect = function() {
+          const rect = originalGetBoundingClientRect.call(this);
+          return {
+            left: rect.left / SCALE,
+            top: rect.top / SCALE,
+            right: rect.right / SCALE,
+            bottom: rect.bottom / SCALE,
+            width: rect.width / SCALE,
+            height: rect.height / SCALE,
+            x: rect.x / SCALE,
+            y: rect.y / SCALE
+          };
+        };
       })();
     </script>
+
+    <script type="text/javascript" src="lib.min.js"></script>
+    <script type="text/javascript" src="chunks/gui.js"></script>
   </body>
 </html>
