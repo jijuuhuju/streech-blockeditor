@@ -27,12 +27,10 @@
       "currentCostume": 0,
       "costumes": [
         {
-          "assetId":
-            "cd21514d0531fdffb22204e0ec5ed84a",
+          "assetId": "",
           "name": "背景1",
           "bitmapResolution": 1,
-          "md5ext":
-            "cd21514d0531fdffb22204e0ec5ed84a.svg",
+          "md5ext": "",
           "dataFormat": "svg",
           "rotationCenterX": 0,
           "rotationCenterY": 0
