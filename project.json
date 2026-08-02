@@ -1,0 +1,75 @@
+{
+  "targets": [
+    {
+      "isStage": true,
+      "name": "Stage",
+      "variables": {
+        "var_id": [
+          "変数",
+          "0"
+        ]
+      },
+      "lists": {
+        "hacked_list_001": [
+          "変数",
+          [
+            [
+              12,
+              "変数",
+              "var_id"
+            ]
+          ]
+        ]
+      },
+      "broadcasts": {},
+      "blocks": {},
+      "comments": {},
+      "currentCostume": 0,
+      "costumes": [
+        {
+          "assetId":
+            "cd21514d0531fdffb22204e0ec5ed84a",
+          "name": "背景1",
+          "bitmapResolution": 1,
+          "md5ext":
+            "cd21514d0531fdffb22204e0ec5ed84a.svg",
+          "dataFormat": "svg",
+          "rotationCenterX": 0,
+          "rotationCenterY": 0
+        }
+      ],
+      "sounds": [],
+      "volume": 100,
+      "layerOrder": 0,
+      "tempo": 60,
+      "videoTransparency": 50,
+      "videoState": "on",
+      "textToSpeechLanguage": null
+    }
+  ],
+  "monitors": [
+    {
+      "id": "hacked_list_001",
+      "mode": "list",
+      "opcode": "data_listcontents",
+      "params": {
+        "LIST": "変数"
+      },
+      "spriteName": null,
+      "value": [
+        "0"
+      ],
+      "width": 200,
+      "height": 300,
+      "x": 5,
+      "y": 5,
+      "visible": true
+    }
+  ],
+  "extensions": [],
+  "meta": {
+    "semver": "3.0.0",
+    "vm": "0.2.0",
+    "agent": "Mozilla/5.0"
+  }
+}
