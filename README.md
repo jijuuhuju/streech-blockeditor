@@ -12,3 +12,7 @@ jijuuhuju.github.io/streech-blockeditor/
 [streech-project.github.io/streech-blockeditor](https://streech-project.github.io/streech-blockeditor/)です
 # 更新
 サイトの更新は[streech-project.github.io/streech-blockeditor](https://streech-project.github.io/streech-blockeditor/)で行われます
+
+ありがとうございました
+---
+streech
