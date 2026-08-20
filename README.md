@@ -4,6 +4,7 @@ streechは2026/08/20にアーカイブされました
 jijuuhuju.github.io/streech-blockeditor/
 ```
 から
+(streech-project.github.io/streech-blocksede)[https://streech-project.github.io/streech-blockeditor/]
 # streechとは？
 streechはブロックを増やしたscratchmodです
 # scratch-guiを利用しています
